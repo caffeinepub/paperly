@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "Website \"Paperly\" for teachers (and students) to generate question papers, with unlimited question/paper generation, the ability to merge multiple papers into one, and a student experience for solving AI-generated papers and asking doubts.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-create-the-paperly-app-shell-and-navigation-with-core-pages-for-question-paper-creation-and-management-1-generate-paper-page-2-my-papers-list-page-3-paper-detail-edit-page-and-4-merge-papers-page",
+      "title": "Create the Paperly app shell and navigation with core pages for question paper creation and management: (1) Generate Paper page, (2) My Papers list page, (3) Paper detail/edit page, and (4) Merge Papers page.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-question-paper-generator-workflow-that-lets-a-teacher-define-paper-parameters-e-g-title-subject-grade-class-number-of-questions-difficulty-mix-marks-per-question-and-generates-a-draft-paper-that-can-be-edited-before-saving",
+      "title": "Add a question paper generator workflow that lets a teacher define paper parameters (e.g., title, subject, grade/class, number of questions, difficulty mix, marks per question) and generates a draft paper that can be edited before saving.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-paper-merging-allow-selecting-two-or-more-existing-papers-and-merging-them-into-a-new-paper-preserving-question-order-and-clearly-handling-title-metadata-conflicts-e-g-choose-a-new-title-and-select-subject-grade-or-set-them-manually",
+      "title": "Implement paper merging: allow selecting two or more existing papers and merging them into a new paper, preserving question order and clearly handling title/metadata conflicts (e.g., choose a new title and select subject/grade or set them manually).",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-coherent-distinct-visual-theme-for-paperly-and-use-it-consistently-across-all-pages-typography-spacing-button-styles-cards-and-form-layout-avoid-blue-purple-as-primary-brand-colors",
+      "title": "Apply a coherent, distinct visual theme for Paperly and use it consistently across all pages (typography, spacing, button styles, cards, and form layout). Avoid blue/purple as primary brand colors.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-generated-static-image-assets-for-branding-and-ensure-they-are-used-in-the-ui-from-frontend-public-assets-generated-do-not-serve-images-from-the-backend",
+      "title": "Add generated static image assets for branding and ensure they are used in the UI from frontend/public/assets/generated (do not serve images from the backend).",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-extend-user-onboarding-to-require-selecting-an-account-role-teacher-or-student-and-persist-the-role-in-the-user-profile-update-the-profile-setup-modal-to-include-a-role-selector-and-show-a-prominent-warning-for-students-about-not-using-a-teacher-account-with-the-exact-warning-text-warning-for-students-do-not-use-a-teacher-account-if-you-use-a-teacher-account-you-will-be-banned-permanently",
+      "title": "Extend user onboarding to require selecting an account role (Teacher or Student) and persist the role in the user profile. Update the Profile Setup modal to include a role selector and show a prominent warning for students about not using a Teacher account with the exact warning text: \"Warning for students: Do not use a Teacher account. If you use a Teacher account, you will be banned permanently.\"",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-role-based-navigation-and-route-access-teacher-only-access-to-existing-teacher-workflows-generate-my-papers-paper-detail-merge-papers-and-add-a-student-portal-route-for-student-users-update-the-header-navigation-to-show-teacher-links-only-for-teacher-role-and-show-a-student-portal-link-only-for-student-role-when-a-user-attempts-to-access-a-route-not-permitted-for-their-role-show-an-in-app-access-denied-message-explaining-they-must-switch-to-the-correct-role-account",
+      "title": "Implement role-based navigation and route access: Teacher-only access to existing teacher workflows (Generate, My Papers, Paper Detail, Merge Papers) and add a Student Portal route for Student users. Update the header navigation to show Teacher links only for Teacher role, and show a \"Student Portal\" link only for Student role. When a user attempts to access a route not permitted for their role, show an in-app access denied message explaining they must switch to the correct role/account.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-student-portal-page-that-allows-students-to-generate-an-ai-style-practice-question-paper-using-the-existing-local-generator-and-solve-it-interactively-the-solving-experience-must-let-a-student-start-a-session-answer-each-multiple-choice-question-navigate-between-questions-submit-and-see-a-results-summary-score-correct-incorrect-per-question-and-the-correct-answer",
+      "title": "Create a Student Portal page that allows students to generate an AI-style practice question paper (using the existing local generator) and solve it interactively. The solving experience must let a student: start a session, answer each multiple-choice question, navigate between questions, submit, and see a results summary (score, correct/incorrect per question, and the correct answer).",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-ai-doubt-solver-feature-within-the-student-portal-that-lets-a-student-ask-a-doubt-while-solving-and-receive-a-helpful-explanation-derived-from-the-current-question-data-e-g-restating-the-question-highlighting-the-correct-option-and-providing-a-structured-explanation-this-must-work-without-any-external-ai-llm-service-integrations",
+      "title": "Add an \"AI Doubt Solver\" feature within the Student Portal that lets a student ask a doubt while solving and receive a helpful explanation derived from the current question data (e.g., restating the question, highlighting the correct option, and providing a structured explanation). This must work without any external AI/LLM service integrations.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create Paperly website for teachers to generate question papers",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Support unlimited question generation and question paper generation",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Add question paper merging feature (merge two or more papers into one)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Implement backend data models and persistence for question papers, including create/read/update/list operations so generated papers can be saved and revisited.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Add role selection (Teacher vs Student) and enforce account-use policy with a student warning that using a teacher account leads to permanent ban",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Create Student page/portal to solve question papers generated by AI (interactive solving experience)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Add AI doubt solver feature for students to ask questions and get explanations while solving/learning",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Paperly",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

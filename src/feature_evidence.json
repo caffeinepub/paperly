@@ -1,0 +1,90 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-extend-user-onboarding-to-require-selecting-an-account-role-teacher-or-student-and-persist-the-role-in-the-user-profile-update-the-profile-setup-modal-to-include-a-role-selector-and-show-a-prominent-warning-for-students-about-not-using-a-teacher-account-with-the-exact-warning-text-warning-for-students-do-not-use-a-teacher-account-if-you-use-a-teacher-account-you-will-be-banned-permanently",
+      "featureTitle": "Extend user onboarding to require selecting an account role (Teacher or Student) and persist the role in the user profile. Update the Profile Setup modal to include a role selector and show a prominent warning for students about not using a Teacher account with the exact warning text: \"Warning for students: Do not use a Teacher account. If you use a Teacher account, you will be banned permanently.\"",
+      "files": [
+        "frontend/src/components/ProfileSetupModal.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-role-based-navigation-and-route-access-teacher-only-access-to-existing-teacher-workflows-generate-my-papers-paper-detail-merge-papers-and-add-a-student-portal-route-for-student-users-update-the-header-navigation-to-show-teacher-links-only-for-teacher-role-and-show-a-student-portal-link-only-for-student-role-when-a-user-attempts-to-access-a-route-not-permitted-for-their-role-show-an-in-app-access-denied-message-explaining-they-must-switch-to-the-correct-role-account",
+      "featureTitle": "Implement role-based navigation and route access: Teacher-only access to existing teacher workflows (Generate, My Papers, Paper Detail, Merge Papers) and add a Student Portal route for Student users. Update the header navigation to show Teacher links only for Teacher role, and show a \"Student Portal\" link only for Student role. When a user attempts to access a route not permitted for their role, show an in-app access denied message explaining they must switch to the correct role/account.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/AppLayout.tsx",
+        "frontend/src/components/RoleAccessDenied.tsx",
+        "frontend/src/components/RoleGuard.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-student-portal-page-that-allows-students-to-generate-an-ai-style-practice-question-paper-using-the-existing-local-generator-and-solve-it-interactively-the-solving-experience-must-let-a-student-start-a-session-answer-each-multiple-choice-question-navigate-between-questions-submit-and-see-a-results-summary-score-correct-incorrect-per-question-and-the-correct-answer",
+      "featureTitle": "Create a Student Portal page that allows students to generate an AI-style practice question paper (using the existing local generator) and solve it interactively. The solving experience must let a student: start a session, answer each multiple-choice question, navigate between questions, submit, and see a results summary (score, correct/incorrect per question, and the correct answer).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/AppLayout.tsx",
+        "frontend/src/components/student/PracticeSession.tsx",
+        "frontend/src/components/student/ResultsSummary.tsx",
+        "frontend/src/pages/StudentPortalPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-an-ai-doubt-solver-feature-within-the-student-portal-that-lets-a-student-ask-a-doubt-while-solving-and-receive-a-helpful-explanation-derived-from-the-current-question-data-e-g-restating-the-question-highlighting-the-correct-option-and-providing-a-structured-explanation-this-must-work-without-any-external-ai-llm-service-integrations",
+      "featureTitle": "Add an \"AI Doubt Solver\" feature within the Student Portal that lets a student ask a doubt while solving and receive a helpful explanation derived from the current question data (e.g., restating the question, highlighting the correct option, and providing a structured explanation). This must work without any external AI/LLM service integrations.",
+      "files": [
+        "frontend/src/components/student/DoubtSolverPanel.tsx",
+        "frontend/src/components/student/PracticeSession.tsx",
+        "frontend/src/lib/doubtSolver/localDoubtSolver.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

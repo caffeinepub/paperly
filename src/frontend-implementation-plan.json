@@ -1,0 +1,125 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Teacher/Student roles, role-based access, and Student Portal practice + doubt helper",
+  "requirements": [
+    {
+      "id": "REQ-7",
+      "summary": "Require Teacher/Student role selection during first-time profile setup, persist it via existing profile save flow, and display the exact student warning text.",
+      "acceptanceCriteria": [
+        "On first login (when no profile exists), the profile setup flow requires both a name and a role before continuing.",
+        "The user profile stored in the backend includes the selected role and is returned by getCallerUserProfile().",
+        "The warning text is displayed in English exactly as specified somewhere clearly visible in the role selection experience (at minimum when Student is selected).",
+        "If a user already has a profile, the modal does not re-appear and their role is reused."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ProfileSetupModal.tsx",
+          "operation": "modify",
+          "description": "Add a required role selector (Teacher/Student) to the Profile Setup modal; block submit until both name and role are provided; show the exact warning text when Student is selected: \"Warning for students: Do not use a Teacher account. If you use a Teacher account, you will be banned permanently.\" Use patterns recommended by the selected authorization component for profile setup behavior; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/usePapers.ts",
+          "operation": "modify",
+          "description": "Ensure useSaveCallerUserProfile is called with the full UserProfile shape (name + role) and keep React Query invalidation so the modal closes after save. Align with the selected authorization component’s frontend guidance for profile caching/clearing; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Add role-based navigation and route guards: Teacher-only access to existing teacher pages and Student-only access to the new Student Portal, with an in-app access denied message for disallowed routes.",
+      "acceptanceCriteria": [
+        "Teacher role users can access: /, /my-papers, /paper/$paperId, /merge and do not see Student Portal in nav by default.",
+        "Student role users can access the new Student Portal page and do not see teacher-only nav links.",
+        "Direct URL navigation to a disallowed route results in a clear access denied screen/message (no blank page).",
+        "No changes are made to immutable paths listed in SYSTEM_CONTEXT (compose new components/pages instead)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/RoleGuard.tsx",
+          "operation": "create",
+          "description": "Create a small route-guard component that reads the current UserProfile role and conditionally renders children or an in-app access denied message (explaining they must switch to the correct role/account). Use role concepts consistent with the selected authorization component; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/RoleAccessDenied.tsx",
+          "operation": "create",
+          "description": "Add a dedicated, user-friendly access denied screen/message for role-mismatched routes (distinct from unauthenticated AccessDeniedScreen) and ensure it renders on both mobile and desktop. Verify the selected authorization component’s guidance on handling authorization failures before implementing."
+        },
+        {
+          "path": "frontend/src/components/AppLayout.tsx",
+          "operation": "modify",
+          "description": "Update header navigation to conditionally show teacher links only for Teacher role, and show a \"Student Portal\" link only for Student role. Keep existing layout responsive behavior. Verify the selected authorization component’s guidance on clearing cached profile data on logout before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add a /student route and wrap routed pages with RoleGuard so Teacher-only and Student-only route access is enforced on direct URL navigation as well as via nav. Ensure disallowed routes render RoleAccessDenied (not a blank page). Verify the selected authorization component’s frontend role/profile patterns before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Create a Student Portal page where students can generate a local practice paper and solve it interactively with navigation and results summary.",
+      "acceptanceCriteria": [
+        "Student Portal includes a way to generate a new practice paper using existing parameter inputs (title/subject/grade/number of questions/difficulty mix/marks), without requiring saving to the teacher paper list.",
+        "Students can select an option for each question; answers persist while navigating between questions.",
+        "On submit, the UI shows total score and per-question feedback (selected option, correct option).",
+        "The Student Portal is reachable via a dedicated route (e.g., /student) and is only visible/accessible to Student role users."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/StudentPortalPage.tsx",
+          "operation": "create",
+          "description": "Implement the Student Portal page that reuses the existing local generator inputs (via PaperParamsForm) and creates a practice paper without any save-to-teacher-list actions. Wire solving UI (start session, answer MCQs, navigate, submit, results). Verify the selected authorization component’s guidance for requiring login before showing user data before implementing."
+        },
+        {
+          "path": "frontend/src/components/student/PracticeSession.tsx",
+          "operation": "create",
+          "description": "Create an interactive practice session component to render questions, track selected answers per question (persist across navigation), support prev/next navigation, and compute score + per-question correctness on submit."
+        },
+        {
+          "path": "frontend/src/components/student/ResultsSummary.tsx",
+          "operation": "create",
+          "description": "Create a results summary component that shows total score and per-question feedback including selected option and correct option (and clearly indicate correct/incorrect)."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register the StudentPortalPage route at /student and ensure it is wrapped with RoleGuard to be Student-only (and not reachable for Teacher role). Verify the selected authorization component’s role-based UI guidance before implementing."
+        },
+        {
+          "path": "frontend/src/components/AppLayout.tsx",
+          "operation": "modify",
+          "description": "Add the \"Student Portal\" navigation item that appears only for Student role users and routes to /student. Verify the component's usage instructions (authorization) before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Add a local \"AI Doubt Solver\" inside the Student Portal that generates immediate, structured explanations from the current question context with no external AI calls.",
+      "acceptanceCriteria": [
+        "Each question in the Student Portal has a \"Ask Doubt\" / \"Doubt Solver\" UI entry point.",
+        "The student can type a doubt/question and receive an immediate response generated locally from the current question context (no network calls to external AI providers).",
+        "The response includes at least: the correct answer option and a short explanation section.",
+        "The doubt solver UI is usable on mobile and desktop and does not block solving progress."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/lib/doubtSolver/localDoubtSolver.ts",
+          "operation": "create",
+          "description": "Implement a pure local helper that takes (current question, student doubt text) and returns a structured response containing at least the correct option and a short explanation derived from the question text/options/correctAnswer, with no external network calls."
+        },
+        {
+          "path": "frontend/src/components/student/DoubtSolverPanel.tsx",
+          "operation": "create",
+          "description": "Create a mobile-friendly doubt solver UI panel/modal section with an input for the student's doubt and a locally generated response display that does not block solving progress."
+        },
+        {
+          "path": "frontend/src/components/student/PracticeSession.tsx",
+          "operation": "modify",
+          "description": "Add an \"Ask Doubt\" / \"Doubt Solver\" entry point per question and integrate DoubtSolverPanel using the localDoubtSolver output, ensuring the response includes the correct answer option and a short explanation."
+        }
+      ]
+    }
+  ]
+}
